@@ -54,12 +54,11 @@ export async function openURLshorten(req, res){
     );
 
     if(!shortUrl){
-      res.status(404).send("nao existe a url...")
+      return res.status(404).send("nao existe a url...")
     }
 
-    const increment = url[0].viewCount + 1;
     await connection.query(
-      `UPDATE links SET "viewCount"=$1`, [increment]
+      `UPDATE links SET "viewCount" = "viewCount" + 1 WHERE "shortUrl" = $1`, [shortUrl]
     );
 
     //return res.status(200).send("funcionou");
