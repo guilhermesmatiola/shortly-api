@@ -125,7 +125,7 @@ export async function getUser(req, res) {
     const user_id = res.locals.id;
     
     const shortenedUrls = await connection.query(
-      `SELECT * FROM links WHERE links."userId"=$1;` , [user_id]
+      `SELECT id, "shortUrl", url, "viewCount" as "visitCount" FROM links WHERE links."userId"=$1;` , [user_id]
     );
 
     if(shortenedUrls.rows.length<1){
@@ -135,7 +135,7 @@ export async function getUser(req, res) {
     let visitCount=0;
 
     for(let i=0;i<shortenedUrls.rows.length;i++){
-      visitCount += shortenedUrls.rows[i].visit_count;
+      visitCount += shortenedUrls.rows[i].viewCount;
     }
 
     const selectedUser = await connection.query(
