@@ -1,0 +1,43 @@
+----------------------TABELA "sessions" nao usada pois foi utilizado jwt----------------------------
+
+--CREATE TABLE users(
+--	"id" SERIAL PRIMARY KEY NOT NULL,
+--	"name" TEXT NOT NULL,
+--	"email" text NOT NULL UNIQUE,
+--	"password" TEXT NOT NULL,
+--	"createdAt" timestamp DEFAULT NOW()
+--);
+
+--CREATE TABLE sessions(
+--  	id SERIAL PRIMARY KEY,
+ -- 	token TEXT NOT NULL UNIQUE,
+ -- 	"createdAt" timestamp DEFAULT NOW(),
+	--"userId" INTEGER NOT NULL REFERENCES users(id)
+--);
+
+--CREATE TABLE links(
+--	"id" SERIAL PRIMARY KEY NOT NULL,
+	--"shortUrl" TEXT NOT NULL,
+	--"url" TEXT NOT NULL,
+--	"viewCount" INTEGER NOT NULL,
+	--"createdAt" timestamp NOT NULL DEFAULT NOW(),
+--	"userId" INTEGER REFERENCES users(id)
+--);
+--INSERT INTO users (name,email,password) values ('guilherme', 'gui@gmail.com','123');
+--INSERT INTO links ("shortUrl",url,"viewCount","userId") values ('https://web.whatsapp.com/', 'https://web.whatsapp.com/','5','1');
+--SELECT * FROM links;
+--INSERT INTO users (name,email,password) values ('jojo', 'jojo@email.com', 12345);
+--SELECT id, "shortUrl", "url" FROM links WHERE id = 3
+--SELECT * FROM users;
+--SELECT * FROM links WHERE url.id=1;
+--SELECT id, "shortUrl", "url" FROM links WHERE id = 1;
+--SELECT id, "shortUrl", "url" FROM links WHERE id = 4;
+--SELECT * FROM links WHERE "shortUrl" = 'X_HPgcD4';
+--SELECT * FROM links WHERE "shortUrl" = 'X_HPgcD4';
+--SELECT * FROM links;
+--SELECT * FROM users;
+--UPDATE links SET "viewCount" = "viewCount" + 1 WHERE "shortUrl" = 'X_HPgcD4'
+--SELECT users.id, users.name, users.email, users.password, links."shortUrl" FROM users JOIN links ON users.id = links."userId";
+--DELETE FROM links WHERE id = 1;
+--SELECT us.id,us.name,SUM(ur."viewCount") as "viewCount",COUNT(ur.id) as "linksCount" FROM links ur LEFT JOIN users us ON ur."userId"=us.id GROUP BY us.id ORDER BY "viewCount" DESC LIMIT 10;
+--SELECT usr.id, usr.name, COUNT(u.id) as "linksCount", SUM(u."viewCount") as "viewCount" FROM links u JOIN users usr ON u."userId" = usr.id GROUP BY usr.id ORDER BY "viewCount" DESC LIMIT 10;
