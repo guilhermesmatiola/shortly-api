@@ -72,32 +72,6 @@ export async function openURLshorten(req, res){
 
 export async function deleteURLid(req, res){
 
-  // const userid = res.locals.id;
-  // const URLid = req.params.id;
-  // console.log(userid);
-  // console.log(URLid);
-
-  // try{
-  //   const { rows : url } = await connection.query( `SELECT * FROM links WHERE id = $1`, [URLid]
-  //   );
-
-  //   if (url[0].userId !== userid){
-  //     return res.sendStatus(401);
-  //   }
-
-  //   await connection.query( `DELETE FROM links WHERE id = $1`, [URLid]
-  //   );
-
-  //   return res.sendStatus(204);
-  
-  // }
-  // catch (error){
-  //   return res.status(400).send(error);
-  // }
-
-
-
-
   const id  = req.params.id;
 
   try {
@@ -116,10 +90,10 @@ export async function deleteURLid(req, res){
     if(selectResponse.rows.length<1){
       return res.sendStatus(404);
     }
-    //////////////////////////////////////////////////////////////
+    
     let deleteResponse;
 
-    if(selectResponse.rows[0].user_id==user_id){
+    if(selectResponse.rows[0].userId==user_id){
       console.log("if delete passou")
       
       deleteResponse = await connection.query(
@@ -193,7 +167,7 @@ export async function getRanking(req, res) {
     const usersRank = await connection.query(
       `
       SELECT usr.id, usr.name, COUNT(u.id) as "linksCount", SUM(u."viewCount") as "visitCount" FROM links u
-      JOIN users usr ON u."userId" = usr.id GROUP BY usr.id ORDER BY "visitCount" DESC LIMIT 10;
+      LEFT JOIN users usr ON u."userId" = usr.id GROUP BY usr.id ORDER BY "visitCount" DESC LIMIT 10;
       `
     );
 

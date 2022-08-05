@@ -8,8 +8,7 @@ const router = Router();
 router.post("/urls/shorten", tokenValidationMiddleware, ValidateURL, postURL);
 router.get("/urls/:id", getURLById);
 router.get("/urls/open/:shortUrl", openURLshorten);
-router.delete("urls/:id", tokenValidationMiddleware, deleteURLid);
-//router.delete("urls/:id", deleteURLid);
+router.delete("/urls/:id", tokenValidationMiddleware, deleteURLid);
 router.get("/users/me", tokenValidationMiddleware, getUser);
 router.get("/ranking", getRanking);
 
