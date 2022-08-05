@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postURL, getURLById, openURLshorten , deleteURLid, getUser} from "../controllers/urlController.js";
+import { postURL, getURLById, openURLshorten , deleteURLid, getUser, getRanking} from "../controllers/urlController.js";
 import { tokenValidationMiddleware } from "../middlewares/tokenSchemaValidation.js";
 import { ValidateURL } from "../middlewares/urlSchemaValidation.js";
 
@@ -11,5 +11,6 @@ router.get("/urls/open/:shortUrl", openURLshorten);
 router.delete("urls/:id", tokenValidationMiddleware, deleteURLid);
 //router.delete("urls/:id", deleteURLid);
 router.get("/users/me", tokenValidationMiddleware, getUser);
+router.get("/ranking", getRanking);
 
 export default router;

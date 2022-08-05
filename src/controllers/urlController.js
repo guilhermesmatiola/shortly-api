@@ -187,3 +187,19 @@ export async function getUser(req, res) {
     return res.status(500).send(error);
   }
 } 
+
+export async function getRanking(req, res) {
+  try {
+    const usersRank = await connection.query(
+      `
+      SELECT usr.id, usr.name, COUNT(u.id) as "linksCount", SUM(u."viewCount") as "visitCount" FROM links u
+      JOIN users usr ON u."userId" = usr.id GROUP BY usr.id ORDER BY "visitCount" DESC LIMIT 10;
+      `
+    );
+
+    return res.status(200).send(usersRank.rows);
+
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+} 
