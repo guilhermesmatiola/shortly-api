@@ -1,28 +1,30 @@
 ----------------------TABELA "sessions" nao usada pois foi utilizado jwt----------------------------
 
---CREATE TABLE users(
---	"id" SERIAL PRIMARY KEY NOT NULL,
---	"name" TEXT NOT NULL,
---	"email" text NOT NULL UNIQUE,
---	"password" TEXT NOT NULL,
---	"createdAt" timestamp DEFAULT NOW()
---);
+CREATE TABLE users(
+"id" SERIAL PRIMARY KEY NOT NULL,
+"name" TEXT NOT NULL,
+"email" text NOT NULL UNIQUE,
+"password" TEXT NOT NULL,
+"createdAt" timestamp DEFAULT NOW()
+);
 
---CREATE TABLE sessions(
---  	id SERIAL PRIMARY KEY,
- -- 	token TEXT NOT NULL UNIQUE,
- -- 	"createdAt" timestamp DEFAULT NOW(),
-	--"userId" INTEGER NOT NULL REFERENCES users(id)
---);
+CREATE TABLE sessions(
+id SERIAL PRIMARY KEY,
+token TEXT NOT NULL UNIQUE,
+"createdAt" timestamp DEFAULT NOW(),
+"userId" INTEGER NOT NULL REFERENCES users(id)
+);
 
---CREATE TABLE links(
---	"id" SERIAL PRIMARY KEY NOT NULL,
-	--"shortUrl" TEXT NOT NULL,
-	--"url" TEXT NOT NULL,
---	"viewCount" INTEGER NOT NULL,
-	--"createdAt" timestamp NOT NULL DEFAULT NOW(),
---	"userId" INTEGER REFERENCES users(id)
---);
+CREATE TABLE links(
+"id" SERIAL PRIMARY KEY NOT NULL,
+"shortUrl" TEXT NOT NULL,
+"url" TEXT NOT NULL,
+"viewCount" INTEGER NOT NULL,
+"createdAt" timestamp NOT NULL DEFAULT NOW(),
+"userId" INTEGER REFERENCES users(id)
+);
+
+
 --INSERT INTO users (name,email,password) values ('guilherme', 'gui@gmail.com','123');
 --INSERT INTO links ("shortUrl",url,"viewCount","userId") values ('https://web.whatsapp.com/', 'https://web.whatsapp.com/','5','1');
 --SELECT * FROM links;
