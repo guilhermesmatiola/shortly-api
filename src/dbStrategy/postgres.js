@@ -3,8 +3,11 @@ import pg from 'pg';
 
 const { Pool } = pg;
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
+
 const databaseConfig = {
    connectionString: process.env.DATABASE_URL,
+   
    ssl:{
          rejectUnautorized: false
    }
