@@ -50,7 +50,7 @@ export async function signIn(req, res) {
       }
   
       const secretKey = process.env.JWT_SECRET;
-      const token = jwt.sign({ id: user[0]._id }, secretKey);
+      const token = jwt.sign({ id: user[0].id }, secretKey);
   
       return res.status(200).send({ token });
     } catch (error) {

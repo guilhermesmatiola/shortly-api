@@ -5,7 +5,7 @@ export async function postURL(req, res) {
 
     const { url } = req.body;
     const { id } = res.locals;
-  
+    //console.log(id);
     const shortUrl = nanoid(8);
   
     try {
@@ -69,3 +69,121 @@ export async function openURLshorten(req, res){
     return res.status(400).send(error);
   }
 }
+
+export async function deleteURLid(req, res){
+
+  // const userid = res.locals.id;
+  // const URLid = req.params.id;
+  // console.log(userid);
+  // console.log(URLid);
+
+  // try{
+  //   const { rows : url } = await connection.query( `SELECT * FROM links WHERE id = $1`, [URLid]
+  //   );
+
+  //   if (url[0].userId !== userid){
+  //     return res.sendStatus(401);
+  //   }
+
+  //   await connection.query( `DELETE FROM links WHERE id = $1`, [URLid]
+  //   );
+
+  //   return res.sendStatus(204);
+  
+  // }
+  // catch (error){
+  //   return res.status(400).send(error);
+  // }
+
+
+
+
+  const id  = req.params.id;
+
+  try {
+    console.log("url_id "+id)
+    //verificar se url é do usuario
+    const user_id = res.locals.id;
+
+    console.log("user_id "+user_id);
+
+    const selectResponse = await connection.query(
+      `SELECT * FROM links WHERE links.id=$1;` , [id]
+    );
+
+    console.log("selectresponse.rows "+ selectResponse.rows[0])
+
+    if(selectResponse.rows.length<1){
+      return res.sendStatus(404);
+    }
+    //////////////////////////////////////////////////////////////
+    let deleteResponse;
+
+    if(selectResponse.rows[0].user_id==user_id){
+      console.log("if delete passou")
+      
+      deleteResponse = await connection.query(
+        `DELETE FROM links WHERE links.id=$1;` , [id]
+      );
+
+    }else{
+      return res.sendStatus(401);
+    }
+
+   console.log("deleteresponse:"+ deleteResponse)
+
+    if(deleteResponse.rowCount<1){
+      return res.sendStatus(404);
+    }
+
+    return res.sendStatus(200);
+
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+
+}
+
+export async function getUser(req, res) {
+
+  try {
+    
+    const user_id = res.locals.id;
+    
+    const shortenedUrls = await connection.query(
+      `SELECT * FROM links WHERE links."userId"=$1;` , [user_id]
+    );
+
+    if(shortenedUrls.rows.length<1){
+      return res.sendStatus(404);
+    }
+    
+    let visitCount=0;
+
+    for(let i=0;i<shortenedUrls.rows.length;i++){
+      visitCount += shortenedUrls.rows[i].visit_count;
+    }
+
+    const selectedUser = await connection.query(
+      `SELECT * FROM users WHERE users.id=$1;` , [user_id]
+    );
+
+    if(selectedUser.rows.length<1){
+      return res.sendStatus(404);
+    }
+    
+    const rows=shortenedUrls.rows;
+
+    const responseObject={
+      "id": selectedUser.rows[0].id,
+	    "name": selectedUser.rows[0].name,
+	    "visitCount": visitCount,
+	    "shortenedUrls": rows
+    }
+
+    return res.status(200).send(responseObject);
+
+  } catch (error) {
+    return res.status(500).send(error);
+  }
+} 
