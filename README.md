@@ -1,7 +1,10 @@
 # shortly-api
 
-PT- API para criação e compartilhamento de links, utilizando tecnologias para encurtar URLs. Todas as rotas autenticadas devem receber um header Authorization no formato Bearer TOKEN.
-ENG- API for creating and sharing links, using technologies to shorten URLs. All authenticated routes must receive an Authorization header in Bearer TOKEN format.
+- PT- API para criação e compartilhamento de links, utilizando tecnologias para encurtar URLs. Todas as rotas autenticadas devem receber um header Authorization no formato Bearer TOKEN. Banco de dados populado e criado nos arquivos;
+
+
+- ENG- API for creating and sharing links, using technologies to shorten URLs. All authenticated routes must receive an Authorization header in Bearer TOKEN format. Database populated and created in the files;
+
 
 - **POST** `/signup`
     - Esta **não é** uma rota autenticada.
